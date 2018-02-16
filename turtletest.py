@@ -13,6 +13,9 @@ class Point2D:
         self.x = x
         self.y = y
 
+moonOrbitColor = Color(0,0,255)
+planetOrbitColor = Color(0,100,255)
+
 def getNewTurtle():
     localTurtle = turtle.Turtle()
     localTurtle.hideturtle()
@@ -50,6 +53,7 @@ def getBottomYOfScreenPositionForTurtle(turtle):
 
 def drawPlanetaryOrbit(orbitRadius):
     localTurtle = getNewTurtle()
+    setTurtleToColor(localTurtle, planetOrbitColor)
     moveTurtleToPosition(localTurtle,
                          0,
                          getBottomYOfScreenPositionForTurtle(localTurtle) - orbitRadius)
@@ -66,8 +70,8 @@ def drawPlanet(planetPosition, orbitRadius, planetRadius, planetDescription, col
     planetTurtle = getNewTurtle()
 
     moveTurtleToPosition(planetTurtle,
-                         planetPosition.x + planetRadius + 5,
-                         planetPosition.y + planetRadius)
+                         planetPosition.x + planetRadius + 20,
+                         planetPosition.y)
     planetTurtle.write(planetDescription)
 
     setTurtleToColor(planetTurtle, color)
@@ -82,6 +86,7 @@ def drawMoon(planetPosition, orbitRadius, moonRadius, color = Color(0,0,0)):
                          planetPosition.x,
                          planetPosition.y - orbitRadius)
     moonTurtle.pensize(0.01)
+    setTurtleToColor(moonTurtle, moonOrbitColor)
     moonTurtle.circle(orbitRadius)
 
     moonPos = getPointOnCircle(orbitRadius, randint(0, 360))
@@ -107,10 +112,10 @@ drawStellarBody(stellarBodyRadius)
 
 for i in [2,4,6]:
     orbitRadius = 100 + int(math.pow(i, 2) * 10)
-    planetPos = getPositionForPlanet(orbitRadius, randint(60,120))
+    planetPos = getPositionForPlanet(orbitRadius, randint(60,140))
     planetRadius = randint(5,30)
     drawPlanet(planetPos, orbitRadius, planetRadius, "HANS " + str(i))
-    for i1 in range(4,randint(4,12), 3):
+    for i1 in range(4,randint(4,12), 4):
         orbitRadius = planetRadius + int(i1 * 2)
         moonRadius = randint(2, 3)
         drawMoon(planetPos, orbitRadius, moonRadius)
